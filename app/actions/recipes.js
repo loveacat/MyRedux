@@ -7,3 +7,9 @@ export function getReceipes(recipes) {
 		recipes,
 	}
 }
+
+export function addReceipes(){
+	return {
+		type:types.ADD_REICIPES,
+	}
+}
