@@ -1,6 +1,8 @@
 // Recipes
 export const SET_SEARCHED_RECIPES = 'SET_SEARCHED_RECIPES'
 export const ADD_REICIPES = 'ADD_REICIPES'
+export const RECEIVED_REICIPES ='RECEIVED_REICIPES'
+export const SET_REICIPES = 'SET_REICIPES'
 // Navigation
 export const SET_TAB = 'SET_TAB'
 

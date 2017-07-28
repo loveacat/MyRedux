@@ -6,24 +6,24 @@ import {
 }	from 'react-native'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { ActionCreators } from '../actions'
+import * as ActionCreators  from '../actions/recipes'
 class AppContainer extends Component {
 	constructor(props) {
 	  super(props);
-	
+		console.log('actioncreater',ActionCreators)
 	  this.state = {
 	  	recipes:0
 	  };
 	}
 
 	addRecipes = ()=>{
-		this.props.addReceipes()
+		this.props.fetchRecipes('bacon,cucumber')
 	}
 	render() {
 		return (
 			<View style={{marginTop:20}}>
 				<Text>
-					I am app container
+					I am app container {this.props.RecipeCount}
 				
 				</Text>
 				<Button onPress={()=>this.addRecipes()}  title='add recipes'/>
@@ -38,8 +38,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    navigationState: state.navigationState
+    RecipeCount: state.RecipeCount
   };
 }
 
-export default connect(null, mapDispatchToProps)(AppContainer);
+export default connect(mapStateToProps, ActionCreators)(AppContainer);
