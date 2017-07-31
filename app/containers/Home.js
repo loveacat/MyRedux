@@ -1,87 +1,109 @@
-import React,{ Component } from 'react'
+/**
+ * Created by tdzl2003 on 12/18/16.
+ */
+import React, { PropTypes, Component } from 'react';
 import {
-	View,
-	Text,
-    Button,
-    FlatList,
-    TextInput,
-    StyleSheet,
-    Image
-}	from 'react-native'
-import { connect } from 'react-redux'
+  View,
+  Text,
+  StyleSheet,
+  Platform,
 
-const styles=StyleSheet.create({
-    header:{
-        flexDirection:'row',
-        padding:4,
-        height:40,
-        alignItems:'stretch',
-    },
-    input:{
-        flex:4,
+} from 'react-native';
 
-    },
-    button:{
-        flex:1,
-        alignItems:'center',
-        justifyContent:'center',
-    }
-})
+import TabNavigator from 'react-native-tab-navigator';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Conference from './Conference';
+import MyAccount from './MyAccount';
+import Message from './Message';
+//import { UserMessage } from '../../logics/UserMessage';
+//import { observer } from 'mobx-react/native';
+//import { getToken } from '../../logics/rpc';
+//import JPushModule from 'jpush-react-native';
 
-class Home extends Component {
-    constructor(props) {
-        super(props)
-        this.state={
-            text:''
-        }
-    }
-    onPress = ()=>{ 
-        this.props.fetchRecipes(this.state.text)
-        //console.log(this.props.itemList)
-    }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor:'#FFFFFF'
+  },
+});
 
-    _keyExtractor = (item, index) => item.id; 
+export default class Home extends Component {
 
-    _renderItem = ({item})=>{
-        return(
-            <View style={styles.row}>
-                <Text>{item.title}</Text>
-                <Image
-                    source={{uri: item.thumbnail}}
-                    style={{width: 400, height: 300}}
-                />
-            </View>
-        )
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 'home',
+    };
+  }
 
-    render(){
-        return(
-            <View>
-                <View style={styles.header}>
-                    <TextInput  
-                        style={styles.input}
-                        onChangeText={text=>this.setState({text})}
-                    />
-                    <Button title="search" style={styles.button} onPress={this.onPress} />
-                </View>
-                <FlatList
-                    data={this.props.itemList.item}
-                    keyExtractor={this._keyExtractor}
-                    
-                    renderItem={this._renderItem}
-                />
+  // openNotification = message => {
+  //   console.log('openNotification')
+  //   if (message['extras']) {
+  //     const messid = JSON.parse(message['extras']).msgid
+  //     this.context.navigator.push({
+  //       location:'/home/messagedetail',
+  //       passProps:{messid}
+  //     })
+  //   } else {
+  //     console.log('notification', message)
+  //   }
+  // }
 
-            </View>
-        )
-    }
+  // receiverNotice = ()=>{
+  //   this.mess.refreshlist()
+  // }
+  
+  // componentWillMount() {
+  //     if (Platform.OS === 'android') {
+  //       JPushModule.initPush();
+  //       JPushModule.addReceiveNotificationListener(this.receiverNotice)
+  //     }
+  //     let userInfo = getToken()
+  //     if( userInfo.phone ){
+  //       JPushModule.setAlias(userInfo.phone,
+  //         suc=>console.log('setAlias suc',suc),error=>console.warn(error)) 
+  //     }
+  //     JPushModule.addReceiveOpenNotificationListener(this.openNotification);
+  // }
+  
+
+  // componentWillUnmount = () => {
+  //   JPushModule.removeReceiveNotificationListener(this.receiverNotice);
+  //   JPushModule.removeReceiveOpenNotificationListener(this.openNotification);
+  // }
+  // mess = new UserMessage()
+
+  render() {
+    return (
+    <TabNavigator>
+      <TabNavigator.Item
+        selected={this.state.selectedTab === 'home'}
+        title="我的会议"
+        renderIcon={() => <Icon name="ios-home" size={20} color="#929292" />}
+        renderSelectedIcon={() => <Icon name="ios-home" size={20} color="#007cca" />}
+        onPress={() => this.setState({ selectedTab: 'home' })}>
+        <Conference />
+      </TabNavigator.Item>
+      <TabNavigator.Item
+        selected={this.state.selectedTab === 'message'}
+        title="消息"
+        //badgeText={this.mess.unReadNumber}
+        renderIcon={() => <Icon name="ios-chatbubbles" size={20} color="#929292" />}
+        renderSelectedIcon={() => <Icon name="ios-chatbubbles" size={20} color="#007cca" />}    
+        onPress={() => this.setState({ selectedTab: 'message' })}>
+        <Message />
+      </TabNavigator.Item>
+      <TabNavigator.Item
+        selected={this.state.selectedTab === 'profile'}
+        title="个人中心"
+        renderIcon={() => <Icon name="ios-person" size={20} color="#929292" />}
+        renderSelectedIcon={() => <Icon name="ios-person" size={20} color="#007cca" />}    
+        onPress={() => this.setState({ selectedTab: 'profile' })}>
+        <MyAccount />
+      </TabNavigator.Item>
+    </TabNavigator>
+    );
+  }
 }
-
-
-function mapStateToProps(state) {
-  return {
-    RecipeCount: state.RecipeCount,
-    itemList:state.items
-  };
-}
-
-export default connect(mapStateToProps)(Home)

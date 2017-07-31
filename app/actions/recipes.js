@@ -31,3 +31,9 @@ export function addReceipes(){
 		type:types.ADD_REICIPES,
 	}
 }
+
+export function initializeApp(){
+	return {
+		type:types.INIT_APP,
+	}
+}

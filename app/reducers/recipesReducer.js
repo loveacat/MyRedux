@@ -6,7 +6,7 @@ export const items = createReducer({isFetching:false,item:[]},{
 		return Object.assign({},state,{isFetching:true})
 	},
 	[types.RECEIVED_REICIPES](state,action){
-		return Object.assign({},state,{item:state.item.concat(action.recipes)})
+		return Object.assign({},state,{isFetching:false,item:action.recipes})
 	}
 });
 
@@ -20,3 +20,16 @@ export const RecipeCount = createReducer(0,{
 		return state+action.recipes.length
 	}
 })
+
+export const isAppReady = createReducer(false,{
+	[types.INIT_APP](state,action){
+		return true
+	}
+})
+
+// export const isLoggedIn = createReducer(false,{
+// 	[types.INIT_APP](state,action){
+// 		return true
+// 	}
+// })
+ 

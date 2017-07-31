@@ -1,23 +1,22 @@
 // @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Image, Dimensions  } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import { getIsLoggedIn } from 'src/redux/reducers/auth'
-import { getIsAppReady } from 'src/redux/reducers/app'
-import actions from 'src/redux/actions'
+//import { getIsLoggedIn } from 'src/redux/reducers/auth'
+//import { getIsAppReady } from 'src/redux/reducers/app'
+import { ActionCreators } from '../actions'
 
 const mapStateToProps = (state: Object) => ({
-  isAppReady: getIsAppReady(state),
-  isLoggedIn: getIsLoggedIn(state)
+  isAppReady: state.isAppReady,
+  isLoggedIn: state.isLoggedIn,
 })
 
-@connect(mapStateToProps, actions)
-export default class SplashScreen extends Component {
+const screen = Dimensions.get('window');
+
+class SplashScreen extends Component {
   static navigationOptions = {
-    header: {
-      visible: false
-    }
+    header: null
   }
 
   componentDidMount () {
@@ -27,9 +26,9 @@ export default class SplashScreen extends Component {
   componentDidUpdate () {
     if (this.props.isAppReady) {
       if (this.props.isLoggedIn) {
-        this._navigateTo('MainDrawerNavigator')
+        setTimeout(()=>this._navigateTo('Main'),100)
       } else {
-        this._navigateTo('AuthScreen')
+        setTimeout(()=>this._navigateTo('Login'),100)
       }
     }
   }
@@ -44,14 +43,22 @@ export default class SplashScreen extends Component {
 
   render () {
     return (
-      <View style={styles.container} />
+      <View style={styles.container} >
+        <Image
+          source={require('../assets/start.jpg')}
+          resizeMode="stretch"
+          style={{width:screen.width,height:screen.height}}
+        />
+      </View>
     )
   }
 }
 
+export default connect(mapStateToProps, ActionCreators)(SplashScreen)
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#FFFFFF'
   }
 })

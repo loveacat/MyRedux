@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation'
 import { MainScreenNavigator } from '../containers/Tab'
 import { MyDrawer } from '../containers/Drawer'
+import SplashScreen from '../containers/SplashScreen'
+import MainScreen from '../containers/AppContainer'
+import Login from '../containers/Login'
 import {
     View,
     Text,
@@ -13,7 +16,7 @@ const HomeScreen = ({ navigation }) => (
   <View>
     <Text>Welcome to Home Screen</Text>
     <Button
-      onPress={() => navigation.navigate('Tab')}
+      onPress={() => navigation.navigate('Main')}
       title = ' Open the Map'
     >
      
@@ -21,10 +24,10 @@ const HomeScreen = ({ navigation }) => (
   </View>
 )
 export const AppNavigator = StackNavigator({
-        Tab: { screen: MainScreenNavigator},
-      Home: { screen: HomeScreen },
-
-
+  Splash: { screen: SplashScreen },
+  Login: { screen: Login },
+  Home: { screen: HomeScreen },
+  Main: { screen: MainScreen }
 });
 
 //console.log('AppNavigator',AppNavigator)

@@ -16,7 +16,9 @@ class AppContainer extends Component {
 	  	recipes:0
 	  };
 	}
-
+	static navigationOptions = {
+        header: null,
+    };
 	addRecipes = ()=>{
 		this.props.fetchRecipes('bacon,cucumber')
 	}
