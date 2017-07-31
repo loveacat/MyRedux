@@ -11,8 +11,13 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button,
 } from 'react-native';
+import AppWithNavigationState from './app/navigator/AppNavigator';
+import { StackNavigator } from 'react-navigation';
+import { MainScreenNavigator } from './app/containers/Tab'
+import { MyDrawer } from './app/containers/Drawer'
 // middleware that logs actions
 //const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
 
@@ -28,30 +33,16 @@ function configureStore(initialState) {
 
 const store = configureStore({});
 
-
-export default class MyRedux extends Component {
+class ReduxExampleApp extends React.Component {
   render() {
     return (
-      <View >
-        <Text >
-          Welcome to React Native!
-        </Text>
-        <Text >
-          To get started, edit index.android.js
-        </Text>
-        <Text >
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
-      </View>
+      <Provider store={store}>
+        <AppWithNavigationState />
+      </Provider>
     );
   }
 }
 
-const App = ()=>(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>
-)
 
-AppRegistry.registerComponent('MyRedux', () => App);
+
+AppRegistry.registerComponent('MyRedux', () => ReduxExampleApp);

@@ -6,7 +6,7 @@ export const items = createReducer({isFetching:false,item:[]},{
 		return Object.assign({},state,{isFetching:true})
 	},
 	[types.RECEIVED_REICIPES](state,action){
-		return Object.assign({},state,{item:state.item.contact(action.recipes)})
+		return Object.assign({},state,{item:state.item.concat(action.recipes)})
 	}
 });
 

@@ -7,6 +7,7 @@ import {
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as ActionCreators  from '../actions/recipes'
+import Home from './Home'
 class AppContainer extends Component {
 	constructor(props) {
 	  super(props);
@@ -21,13 +22,7 @@ class AppContainer extends Component {
 	}
 	render() {
 		return (
-			<View style={{marginTop:20}}>
-				<Text>
-					I am app container {this.props.RecipeCount}
-				
-				</Text>
-				<Button onPress={()=>this.addRecipes()}  title='add recipes'/>
-			</View>
+			<Home {...this.props} />
 		)
 	}
 }
@@ -36,10 +31,5 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(ActionCreators, dispatch);
 }
 
-function mapStateToProps(state) {
-  return {
-    RecipeCount: state.RecipeCount
-  };
-}
 
-export default connect(mapStateToProps, ActionCreators)(AppContainer);
+export default connect(null, ActionCreators)(AppContainer);
