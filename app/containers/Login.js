@@ -15,7 +15,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 //import { login } from '../../logics/auth';
 //import { saveToken } from '../../logics/rpc';
 import { connect } from 'react-redux'
-import * as Actions from '../actions'
+import { ActionCreators } from '../actions'
 
 
 class LoginIndex extends Component{
@@ -132,4 +132,4 @@ class LoginIndex extends Component{
   }
 }
 
-export default connect(null,Actions)(LoginIndex)
+export default connect(null,ActionCreators)(LoginIndex)

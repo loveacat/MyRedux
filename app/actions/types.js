@@ -13,5 +13,8 @@ export const NAVIGATION_BACK = 'NAVIGATION_BACK'
 export const INIT_APP = 'INIT_APP'
 
 // auth
-export const USER_LOGIN = 'USER_LOGIN'
+export const USER_LOGIN_START = 'USER_LOGIN_START'
+export const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL'
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS'
+
 export const USER_LOGOUT = 'USER_LOGOUT'
