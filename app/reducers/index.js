@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import * as recipesReducer from './recipesReducer'
 //import * as navigationReducer from './navigation'
-
+import * as authReducer from './authReducer'
 import { NavigationActions } from 'react-navigation';
 
 import { AppNavigator } from '../navigator/AppNavigator';
@@ -36,7 +36,18 @@ const nav = (state = initialNavState, action) => {
   return nextState || state;
 };
 
-export default combineReducers(Object.assign(
+const appReducer = combineReducers(Object.assign(
 	{nav},
-	recipesReducer
+  recipesReducer,
+  authReducer,
 ))
+
+const rootReducer = (state, action) => {
+  if (action.type === 'USER_LOGOUT') {
+    state = Object.assign({},{nav:state.nav})
+  }
+  console.log('state',state)
+  return appReducer(state, action)
+}
+
+export default rootReducer

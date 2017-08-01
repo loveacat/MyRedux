@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Alert,
   Navigator,
+  KeyboardAvoidingView
 } from 'react-native';
 import InputScrollView from 'react-native-inputscrollview';
 import styles from './Login.style';
@@ -56,7 +57,15 @@ class LoginIndex extends Component{
   // };
 
   onSubmit = ()=>{
-    this.props.login(this.state.username,this.state.pwd)
+    const { username, pwd } = this.state;
+    if (this.props.isLogging) {
+      return;
+    }
+    if (!username || !pwd) {
+      Alert.alert('提示', '请输入手机号和密码');
+    } else {
+      this.props.login(this.state.username,this.state.pwd)
+    }
   }
 
   toTag = (location, type) => {
@@ -75,7 +84,7 @@ class LoginIndex extends Component{
   render() {
     return (
       <View style={styles.mainContainer} >
-        <InputScrollView style={styles.container} >
+        <KeyboardAvoidingView style={styles.container} behavior="padding" >
           <View style={styles.logoRow}>
             <Image
               source={require('../assets/home.jpg')}
@@ -106,14 +115,12 @@ class LoginIndex extends Component{
             />
           </View>
           <View style={styles.buttonRow}>
-            <View style={{ flex: 1 }}>
-              <TouchableOpacity
+            <TouchableOpacity
                 style={styles.submitButton}
                 onPress={this.onSubmit}
               >
                 <Text style={[styles.text, styles.buttonText]}>登录</Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
             <View style={styles.footer}>
               <TouchableOpacity style={styles.link} onPress={() => this.toTag('/home/regist', '忘记密码')}>
                 <Text style={styles.footerText}>忘记密码</Text>
@@ -123,7 +130,7 @@ class LoginIndex extends Component{
               </TouchableOpacity>
             </View>
           </View>
-        </InputScrollView>
+        </KeyboardAvoidingView>
         <TouchableOpacity style={styles.jumpbutton1} onPress={this.changeToManage}>
           <Text style={styles.jumpbuttontext}>管理员登录</Text>
         </TouchableOpacity>
@@ -131,5 +138,7 @@ class LoginIndex extends Component{
     );
   }
 }
-
+const  mapStatetoProps = (state)=>({
+  isLogging:state.isLogging
+})
 export default connect(null,ActionCreators)(LoginIndex)

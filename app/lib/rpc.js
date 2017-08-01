@@ -84,7 +84,7 @@ export async function loadType() {
 }
 
 export function saveToken(_token) {
-  token = _token;
+  token = _token.token;
   //return AsyncStorage.setItem(KEY_TOKEN, token);
   return storage.save({
     key: KEY_TOKEN,   // Note: Do not use underscore("_") in key!
@@ -110,10 +110,10 @@ export async function clearToken() {
 export async function logout(){
   try{
     await clearToken();
-    JPushModule.setAlias("logout",suc=>console.log(suc),error=>console.warn(error)) 
-    if (Platform.OS === 'android') {
-      JPushModule.clearAllNotifications();
-    }
+    // JPushModule.setAlias("logout",suc=>console.log(suc),error=>console.warn(error)) 
+    // if (Platform.OS === 'android') {
+    //   JPushModule.clearAllNotifications();
+    // }
   }catch(error){
     console.log('logout err',error.message)
   }

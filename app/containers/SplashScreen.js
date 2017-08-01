@@ -9,7 +9,7 @@ import { ActionCreators } from '../actions'
 
 const mapStateToProps = (state: Object) => ({
   isAppReady: state.isAppReady,
-  isLoggedIn: state.isLoggedIn,
+  isLogged: state.isLogged,
 })
 
 const screen = Dimensions.get('window');
@@ -20,12 +20,12 @@ class SplashScreen extends Component {
   }
 
   componentDidMount () {
-    this.props.initializeApp()
+    this.props.initialize()
   }
 
   componentDidUpdate () {
     if (this.props.isAppReady) {
-      if (this.props.isLoggedIn) {
+      if (this.props.isLogged) {
         setTimeout(()=>this._navigateTo('Main'),100)
       } else {
         setTimeout(()=>this._navigateTo('Login'),100)

@@ -6,7 +6,6 @@ const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   mainContainer:{
     flex:1,
-    justifyContent:'space-between',
     backgroundColor:'#FFFFFF'
   },
   container:{
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
   buttonRow:{
     flex:1,
     alignItems:'center',
-    justifyContent:'center',
     marginBottom:10,
     paddingLeft:16,
     paddingRight:16,

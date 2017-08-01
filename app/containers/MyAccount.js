@@ -7,9 +7,12 @@ import {
 
 import styles from './MyAccount.style';
 import TouchRow from '../components/TouchRow';
+import { logout } from '../actions/auth';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 //import { logout } from '../../logics/rpc';
 
-export default class MyAccount extends Component {
+class MyAccount extends Component {
 
   constructor(props) {
     super(props);
@@ -67,7 +70,7 @@ export default class MyAccount extends Component {
             onPress={() => this.toTag('/home/set')}
             renderNext
           />
-          <TouchableOpacity style={styles.logoutbutton} onPress={this.accountlogout}>
+          <TouchableOpacity style={styles.logoutbutton} onPress={()=>this.props.logout()}>
             <Text style={{ color: '#FFFFFF' }}>注销登录</Text>
           </TouchableOpacity>
         </View>
@@ -75,3 +78,8 @@ export default class MyAccount extends Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({logout}, dispatch);
+}
+export default connect(null,mapDispatchToProps)(MyAccount)
