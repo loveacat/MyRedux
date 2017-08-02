@@ -31,9 +31,10 @@ const nav = (state = initialNavState, action) => {
   //console.log('nextstate',nextState)
   // Simply return the original `state` if `nextState` is null or undefined.
   //let nextstate = {} ;
-  const nextState = AppNavigator.router.getStateForAction(action, state);
-  console.log('state',nextState)
-  return nextState || state;
+    const nextState = AppNavigator.router.getStateForAction(action, state);
+    console.log('state',nextState)
+    return nextState || state;
+
 };
 
 const appReducer = combineReducers(Object.assign(

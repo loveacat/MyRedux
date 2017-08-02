@@ -2,7 +2,7 @@ import * as types from './types'
 import Api from '../lib/api'
 import { post } from '../lib/rpc';
 import { NavigationActions } from 'react-navigation'
-import { loadToken, saveToken, logout as rpclogout } from '../lib/rpc'
+import { loadToken, saveToken, clearToken } from '../lib/rpc'
 export function login_success(userinfo){
 	return {
 		type:types.USER_LOGIN_SUCCESS,
@@ -54,7 +54,7 @@ export function	logout(){
 		try{
 			//let resp = await post('userLogin',{phone,pwd})
 			//console.log('resp',resp)
-			await rpclogout()
+			clearToken()
 			dispatch(logout_success())
 			_navigateTo(dispatch,'Login')
 		} catch(err){

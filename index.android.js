@@ -31,7 +31,7 @@ function configureStore(initialState) {
   return createStore(reducer, initialState, enhancer);
 }
 
-const store = configureStore({});
+export const store = configureStore({});
 
 class ReduxExampleApp extends React.Component {
   render() {

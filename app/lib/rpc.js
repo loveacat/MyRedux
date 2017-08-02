@@ -4,6 +4,8 @@
 
 import { AsyncStorage } from 'react-native';
 import Storage from 'react-native-storage';
+import { store } from '../../index.android'
+import { NavigationActions } from 'react-navigation'
 import URI from 'urijs';
 import {
   Platform,
@@ -65,6 +67,13 @@ function timeoutPromise(ms, promise) {
   })
 }
 
+_navigateTo = (dispatch,routeName: string) => {
+	const resetAction = NavigationActions.reset({
+		index: 0,
+		actions: [NavigationActions.navigate({ routeName })]
+	})
+	dispatch(resetAction)
+}
 
 export function getToken() {
   return token;
@@ -84,26 +93,29 @@ export async function loadType() {
 }
 
 export function saveToken(_token) {
-  token = _token.token;
+  token = _token;
   //return AsyncStorage.setItem(KEY_TOKEN, token);
-  return storage.save({
+  storage.save({
     key: KEY_TOKEN,   // Note: Do not use underscore("_") in key!
-    rawData: _token
+    data: token
     });
 }
 
 export async function loadToken() {
   //token = await AsyncStorage.getItem(KEY_TOKEN);
-
-  token = await storage.load({
-    key: KEY_TOKEN,
-  })
-  console.log('token',token)
+  try {
+    token = await storage.load({
+      key: KEY_TOKEN,
+    })
+  } catch(err) {
+    token = null
+    console.log('not found',token)
+  }
   return token;
 }
 
-export async function clearToken() {
-  await storage.remove({key:KEY_TOKEN});
+export function clearToken() {
+  storage.remove({key:KEY_TOKEN});
   token = null;
 }
 
@@ -147,6 +159,9 @@ async function request(url, options = {method: 'GET'}, params = {'__placeholder'
           body.append(i, params[i]);
         }
     }*/
+    
+    let storageToken = await loadToken()
+    console.log('storagetoken',storageToken)
     let formBody = [];
     for (let property in params) {
       let encodedKey = encodeURIComponent(property);
@@ -164,8 +179,8 @@ async function request(url, options = {method: 'GET'}, params = {'__placeholder'
       'Content-Type': 'application/x-www-form-urlencoded',
       ...options.headers
     };
-    if (token) {
-      options.headers['token'] = token.token;
+    if (storageToken) {
+      options.headers['token'] = storageToken.token;
     }
     if (__DEV__) {
       console.log(`${options.method} ${url}`);
@@ -188,7 +203,9 @@ async function request(url, options = {method: 'GET'}, params = {'__placeholder'
         return obj.data;
       }
       else if (obj.code ===2){
-        DeviceEventEmitter.emit('invalidToken',obj.message);
+        //DeviceEventEmitter.emit('invalidToken',obj.message);
+        _navigateTo(store.dispatch,'Login')
+        store.dispatch({type:'USER_LOGOUT'})
         throw new Error(obj.message);
       }else {
         throw new Error(obj.message);

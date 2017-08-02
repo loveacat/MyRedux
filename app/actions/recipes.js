@@ -1,5 +1,6 @@
 import * as types from './types'
 import Api from '../lib/api'
+import { post } from '../lib/rpc';
 export function setReceipes() {
 	// body...
 	return	{
@@ -37,3 +38,15 @@ export function initializeApp(){
 		type:types.INIT_APP,
 	}
 }
+
+export function getQrcode(){
+	return async(dispatch,getState) =>{
+		let cusid = getState().userinfo.cusid
+		let result = await post('getQrcode',{cusid})
+		console.log('qrcode',result)
+		dispatch({
+			type:'GET_QRCODE'
+		})
+	}
+}
+	
