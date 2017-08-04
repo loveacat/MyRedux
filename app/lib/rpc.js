@@ -103,13 +103,13 @@ export function saveToken(_token) {
 
 export async function loadToken() {
   //token = await AsyncStorage.getItem(KEY_TOKEN);
+  let token = {}
   try {
     token = await storage.load({
       key: KEY_TOKEN,
     })
   } catch(err) {
-    token = null
-    console.log('not found',token)
+    console.log('not found token')
   }
   return token;
 }

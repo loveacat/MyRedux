@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "16.0.0-alpha.12",
     "react-native": "^0.46.4",
+    "react-native-code-push": "^4.1.0-beta",
     "react-native-inputscrollview": "^2.0.1",
     "react-native-storage": "^0.2.2",
     "react-native-tab-navigator": "^0.3.3",
@@ -17,7 +18,8 @@
     "react-redux": "^5.0.5",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "spawn-sync": "^1.0.15"
   },
   "devDependencies": {
     "babel-jest": "20.0.3",

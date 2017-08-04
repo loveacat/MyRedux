@@ -33,11 +33,7 @@ export function addReceipes(){
 	}
 }
 
-export function initializeApp(){
-	return {
-		type:types.INIT_APP,
-	}
-}
+
 
 export function getQrcode(){
 	return async(dispatch,getState) =>{

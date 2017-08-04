@@ -119,7 +119,7 @@ class LoginIndex extends Component{
                 style={styles.submitButton}
                 onPress={this.onSubmit}
               >
-                <Text style={[styles.text, styles.buttonText]}>登录</Text>
+                <Text style={[styles.text, styles.buttonText]}>登录1.1</Text>
             </TouchableOpacity>
             <View style={styles.footer}>
               <TouchableOpacity style={styles.link} onPress={() => this.toTag('/home/regist', '忘记密码')}>

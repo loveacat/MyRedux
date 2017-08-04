@@ -3,6 +3,7 @@ package com.myredux;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -14,6 +15,12 @@ import java.util.List;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+
+    @Override
+    protected String getJSBundleFile() {
+      return CodePush.getJSBundleFile();
+    }
+
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
@@ -22,7 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+          new CodePush("gzjcMs8-bqZckMF66w0esE-pcs-s818a07f3-ac39-4c09-8a8f-41f816b80dae", MainApplication.this, BuildConfig.DEBUG)
       );
     }
   };

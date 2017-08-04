@@ -18,6 +18,7 @@ import AppWithNavigationState from './app/navigator/AppNavigator';
 import { StackNavigator } from 'react-navigation';
 import { MainScreenNavigator } from './app/containers/Tab'
 import { MyDrawer } from './app/containers/Drawer'
+import codePush from "react-native-code-push";
 // middleware that logs actions
 //const loggerMiddleware = createLogger({ predicate: (getState, action) => __DEV__  });
 
@@ -34,6 +35,12 @@ function configureStore(initialState) {
 export const store = configureStore({});
 
 class ReduxExampleApp extends React.Component {
+  componentDidMount(){
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.ON_NEXT_RESTART
+    });
+  }
   render() {
     return (
       <Provider store={store}>
@@ -42,7 +49,5 @@ class ReduxExampleApp extends React.Component {
     );
   }
 }
-
-
 
 AppRegistry.registerComponent('MyRedux', () => ReduxExampleApp);
